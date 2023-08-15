@@ -16,7 +16,7 @@ int main()
 
 	for(;;)
 	{
-		printf("$ ");
+		write(1, "$ ", 2);
 		line = getline(&lineptr, &buffersize, stdin);
 		if (line == -1)
 		{
