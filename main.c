@@ -9,7 +9,7 @@ int main()
 	char *lineptr = NULL;
 	size_t buffersize = 0;
 	int line;
-	char *av[200];
+	char *av[1024];
 	char *string_token;
 	int count;
 	pid_t c_process;
