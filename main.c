@@ -53,7 +53,7 @@ int main(int argc, char **argv)
 			if (execute == 0)
 			{
 				write(1, lineptr, sizeof(lineptr));
-				return (0);
+				continue;
 			}
 			if ((execute == -1))
 			{
