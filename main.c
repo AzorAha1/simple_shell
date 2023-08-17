@@ -57,8 +57,8 @@ int main(int argc, char **argv)
 			}
 			if ((execute == -1))
 			{
-				perror("Error");
-				return (-1);
+				error_message(argv[0], counter, lineptr, "not found");
+				exit(0);
 			}
 		}
 		else if ((c_process != 0))
@@ -67,5 +67,4 @@ int main(int argc, char **argv)
 		}
 	}
 	free(lineptr);
-	return (1);
 }
