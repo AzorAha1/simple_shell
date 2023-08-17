@@ -8,7 +8,7 @@ void error_message(char *ar, int *line_counter, char *current_argument, char *fo
 {
 	printf("%s: %d %s %s\n", ar, line_counter, current_argument, found_error);
 }
-int main(void)
+int main(int argc, char **argv)
 {
 	char *lineptr = NULL;
 	size_t buffersize = 0;
@@ -16,6 +16,7 @@ int main(void)
 	char *av[1024];
 	char *string_token;
 	int count, mode = isatty(0), counter = 0;
+	(void)argc;
 	pid_t c_process;
 
 	for(;;)
