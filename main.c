@@ -17,7 +17,6 @@ int main(int argc, char **argv)
 	char *av[1024];
 	char *string_token;
 	int count, mode = isatty(0), counter = 0;
-	(void)argc;
 	pid_t c_process;
 
 	for(;;)
