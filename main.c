@@ -4,6 +4,7 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 #include <stdlib.h>
+#include "main.h
 void error_message(char *ar, int *line_counter, char *current_argument, char *found_error)
 {
 	printf("%s: %d %s %s\n", ar, line_counter, current_argument, found_error);
@@ -37,6 +38,10 @@ int main(int argc, char **argv)
 			string_token = strtok(NULL, " \n");
 		}
 		av[count] = NULL;
+		if (argc == 0 || argv == NULL)
+		{
+			continue;
+		}
 		c_process = fork();
 		if (c_process == 0)
 		{
