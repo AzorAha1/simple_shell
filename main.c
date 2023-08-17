@@ -42,6 +42,10 @@ int main(int argc, char **argv)
 		{
 			continue;
 		}
+		if (_strcmp(av[0], "exit") == 0)
+		{
+			exit(0);
+		}
 		c_process = fork();
 		if (c_process == 0)
 		{
