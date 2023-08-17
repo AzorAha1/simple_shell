@@ -4,19 +4,20 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 #include <stdlib.h>
-int main()
+int main(void)
 {
 	char *lineptr = NULL;
 	size_t buffersize = 0;
 	int line;
 	char *av[1024];
 	char *string_token;
-	int count;
+	int count, mode = isatty(0);
 	pid_t c_process;
 
 	for(;;)
 	{
-		write(1, "$ ", 2);
+		if (atty == 1)
+			write(1, "$ ", 2);
 		line = getline(&lineptr, &buffersize, stdin);
 		if (line == -1)
 		{
@@ -34,7 +35,7 @@ int main()
 		if (c_process == 0)
 		{
 			int execute = execve(av[0], av, NULL);
-			if ((execute = 0))
+			if (execute == 0)
 			{
 				write(1, lineptr, sizeof(lineptr));
 				return (0);
