@@ -26,8 +26,8 @@ int main(int argc, char **argv)
 		line = getline(&lineptr, &buffersize, stdin);
 		if (line == -1)
 		{
-			perror("Error");
-			return (-1);
+			error_message(argv[0], counter, lineptr, "not found");
+			exit(0);
 		}
 		string_token = strtok(lineptr, " \n");
 		for (count = 0; string_token != NULL; count++)
