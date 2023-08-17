@@ -29,6 +29,7 @@ int main(int argc, char **argv)
 			error_message(argv[0], counter, lineptr, "not found");
 			continue;
 		}
+		counter++;
 		string_token = strtok(lineptr, " \n");
 		for (count = 0; string_token != NULL; count++)
 		{
