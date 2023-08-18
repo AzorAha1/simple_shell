@@ -5,6 +5,8 @@
 #include <sys/wait.h>
 #include <stdlib.h>
 #include "main.h"
+ #include <unistd.h>
+
 void error_message(char *ar, int line_counter, char *current_argument, char *found_error)
 {
 	printf("%s: %d %s %s\n", ar, line_counter, current_argument, found_error);
@@ -27,7 +29,7 @@ int main(int argc, char **argv)
 		if (line == -1)
 		{
 			error_message(argv[0], counter, lineptr, "not found");
-			continue;
+			exit(1);
 		}
 		counter++;
 		string_token = strtok(lineptr, " \n");
