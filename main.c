@@ -7,7 +7,7 @@
 #include "main.h"
 #include <unistd.h>
 
-int main(int argc, char **argv)
+int main(int argc, char **argv, char **env)
 {
 	char *lineptr = NULL;
 	size_t buffersize = 0;
@@ -16,6 +16,7 @@ int main(int argc, char **argv)
 	char *string_token;
 	int count, mode = isatty(0), counter = 0;
 	pid_t c_process;
+	(void)argc;
 
 	for(;;)
 	{
@@ -28,19 +29,24 @@ int main(int argc, char **argv)
 			exit(1);
 		}
 		counter++;
-		string_token = strtok(lineptr, " \n");
+		string_token = strtok(lineptr, " \n\t");
 		for (count = 0; string_token != NULL; count++)
 		{
 			av[count] = string_token;
-			string_token = strtok(NULL, " \n");
+			string_token = strtok(NULL, " \n\t");
 		}
 		av[count] = NULL;
-		if (argc == 0 || argv == NULL)
+		if (argv == NULL)
 		{
-			continue;
+			exit(1);
 		}
 		if (_strcmp(av[0], "exit") == 0)
 		{
+			exit(0);
+		}
+		if (_strcmp(av[0], "env") == 0)
+		{
+			printenv(env);
 			exit(0);
 		}
 		if (access(av[0], F_OK) == 0)
@@ -58,6 +64,7 @@ int main(int argc, char **argv)
 			else if ((c_process != 0))
 			{
 				wait(NULL);
+				free(lineptr);
 			}
 		}
 		else
