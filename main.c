@@ -29,11 +29,11 @@ int main(int argc, char **argv, char **env)
 			exit(1);
 		}
 		counter++;
-		string_token = strtok(lineptr, " \n\t");
+		string_token = strtok(lineptr, " \n\t\r");
 		for (count = 0; string_token != NULL; count++)
 		{
 			av[count] = string_token;
-			string_token = strtok(NULL, " \n\t");
+			string_token = strtok(NULL, " \n\t\r");
 		}
 		av[count] = NULL;
 		if (argv == NULL)
