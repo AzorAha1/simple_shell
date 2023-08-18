@@ -47,24 +47,26 @@ int main(int argc, char **argv)
 		{
 			exit(0);
 		}
-		c_process = fork();
-		if (c_process == 0)
+		if (access(av[0], F_OK) == 0)
 		{
-			int execute = execve(av[0], av, NULL);
-			if (execute == 0)
+			c_process = fork();
+			if (c_process == 0)
 			{
-				write(1, lineptr, sizeof(lineptr));
-				continue;
+				int execute = execve(av[0], av, NULL);
+				if (execute == 0)
+				{
+					write(1, lineptr, sizeof(lineptr));
+					continue;
+				}
 			}
-			if ((execute == -1))
+			else if ((c_process != 0))
 			{
-				error_message(argv[0], counter, lineptr, "not found");
-				exit(0);
+				wait(NULL);
 			}
 		}
-		else if ((c_process != 0))
+		else
 		{
-			wait(NULL);
+			error_message(argv[0], counter, lineptr, "not found");
 		}
 	}
 	free(lineptr);
