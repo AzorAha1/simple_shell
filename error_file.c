@@ -1,5 +1,21 @@
-#include <stdio.h>
-void error_message(char *ar, int line_counter, char *current_argument, char *found_error)
+#include "main.h"
+void error_message(char *argv, int counter, char *arr)
 {
-	printf("%s: %d %s %s\n", ar, line_counter, current_argument, found_error);
+	int *anothercounter;
+	char *not_found = "not found\n";
+
+	anothercounter = &counter;
+	write(1, argv, strlen(argv));
+	putchar(':');
+	putchar(' ');
+	fflush(stdout);
+	write(1, anothercounter, 1);
+	putchar(':');
+	putchar(' ');
+	fflush(stdout);
+	write(1, arr, strlen(arr));
+	putchar(':');
+	putchar(' ');
+	fflush(stdout);
+	write(1, not_found, strlen(not_found));
 }

@@ -1,18 +1,10 @@
-#include <stdio.h>
-#include <string.h>
-#include <unistd.h>
-#include <sys/types.h>
-#include <sys/wait.h>
-#include <stdlib.h>
 #include "main.h"
-#include <unistd.h>
-
 int main(int argc, char **argv, char **env)
 {
 	char *lineptr = NULL;
 	size_t buffersize = 0;
-	int line;
-	char *av[1024];
+	int line, status;
+	char **av;
 	char *string_token;
 	int count, mode = isatty(0), counter = 0;
 	pid_t c_process;
@@ -20,57 +12,65 @@ int main(int argc, char **argv, char **env)
 
 	for(;;)
 	{
+		counter++;
 		if (mode == 1)
 			write(1, "$ ", 2);
 		line = getline(&lineptr, &buffersize, stdin);
+		lineptr[line - 1]  = '\0';
 		if (line == -1)
 		{
-			error_message(argv[0], counter, lineptr, "not found");
-			exit(1);
-		}
-		counter++;
-		string_token = strtok(lineptr, " \n\t\r");
-		for (count = 0; string_token != NULL; count++)
-		{
-			av[count] = string_token;
-			string_token = strtok(NULL, " \n\t\r");
-		}
-		av[count] = NULL;
-		if (argv == NULL)
-		{
-			exit(1);
-		}
-		if (_strcmp(av[0], "exit") == 0)
-		{
+			free(lineptr);
 			exit(0);
 		}
-		if (_strcmp(av[0], "env") == 0)
+		if (lineptr[0] != '\0')
 		{
-			printenv(env);
-			exit(0);
-		}
-		if (access(av[0], F_OK) == 0)
-		{
-			c_process = fork();
-			if (c_process == 0)
+			av = (char **)malloc(sizeof(char *) * 1000);
+			if (!av)
 			{
-				int execute = execve(av[0], av, NULL);
-				if (execute == 0)
+				continue;
+			}
+			string_token = strtok(lineptr, " \n\t\r");
+			for (count = 0; string_token != NULL; count++)
+			{
+				av[count] = string_token;
+				string_token = strtok(NULL, " \n\t\r");
+			}
+			av[count] = NULL;
+			if (_strcmp(av[0], "exit") == 0)
+			{
+				free(av);
+				exit(2);
+			}
+			if (_strcmp(av[0], "env") == 0)
+			{
+				printenv(env);
+				free(av);
+				continue;
+			}
+			if (access(av[0], F_OK) == 0)
+			{
+				c_process = fork();
+				if (c_process == 0)
 				{
-					write(1, lineptr, sizeof(lineptr));
-					continue;
+					if (execve(av[0], av, NULL) == -1)
+					{
+						error_message(argv[0], counter, lineptr);
+						free(av);
+						exit(1);
+					}
+				}
+				else
+				{
+					wait(&status);
+					free(av);
 				}
 			}
-			else if ((c_process != 0))
+			else
 			{
-				wait(NULL);
-				free(lineptr);
+				error_message(argv[0], counter, av[0]);
+				free(av);
 			}
 		}
-		else
-		{
-			error_message(argv[0], counter, lineptr, "not found");
-		}
 	}
-	free(lineptr);
+	return (0);
 }
