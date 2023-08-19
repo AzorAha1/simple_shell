@@ -12,7 +12,6 @@
 
 int _strcmp(const char *s1, const char *s2);
 char **printenv(char **env);
-void error_message(char *argv, int counter, char *arr);
 size_t _strlen(const char *c);
 
 #endif
