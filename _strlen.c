@@ -5,13 +5,14 @@
  * Description - getting string length
  * Return: returns int
  */
-int _strlen(char *c)
+size_t _strlen(const char *c)
 {
-	int length;
-
-	while(c[length] != '\0')
+	size_t i;
+	if (!c)
 	{
-		length++;
+		return (-1);
 	}
-	return (length);
+	for (i = 0; c[i] != '\0'; i++)
+		;
+	return (i);
 }

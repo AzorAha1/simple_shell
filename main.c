@@ -2,7 +2,7 @@
 int main(int argc, char **argv, char **env)
 {
 	char *lineptr = NULL;
-	size_t buffersize = 0;
+	size_t buffersize = 0, len;
 	int line, status;
 	char **av;
 	char *string_token;
@@ -15,13 +15,20 @@ int main(int argc, char **argv, char **env)
 		counter++;
 		if (mode == 1)
 			write(1, "$ ", 2);
-		line = getline(&lineptr, &buffersize, stdin);
+	line = getline(&lineptr, &buffersize, stdin);
 		lineptr[line - 1]  = '\0';
 		if (line == -1)
 		{
 			free(lineptr);
 			exit(0);
 		}
+		
+		len = _strlen(lineptr);
+
+		while (len > 0 && (lineptr[len - 1] == ' ' || lineptr[len - 1] == '\t'))
+				lineptr[--len] = '\0';
+		if (len == 0)
+			continue;
 		if (lineptr[0] != '\0')
 		{
 			av = (char **)malloc(sizeof(char *) * 1000);
@@ -54,7 +61,8 @@ int main(int argc, char **argv, char **env)
 				{
 					if (execve(av[0], av, NULL) == -1)
 					{
-						error_message(argv[0], counter, lineptr);
+						perror(argv[0]);
+						errno = 2;
 						free(av);
 						exit(1);
 					}
@@ -67,9 +75,9 @@ int main(int argc, char **argv, char **env)
 			}
 			else
 			{
-				error_message(argv[0], counter, av[0]);
+				perror(argv[0]);
+				errno = 2;
 				free(av);
-				free(lineptr);
 			}
 		}
 	}
