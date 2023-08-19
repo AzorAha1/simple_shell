@@ -69,6 +69,7 @@ int main(int argc, char **argv, char **env)
 			{
 				error_message(argv[0], counter, av[0]);
 				free(av);
+				free(lineptr);
 			}
 		}
 	}

@@ -9,7 +9,7 @@ void error_message(char *argv, int counter, char *arr)
 	putchar(':');
 	putchar(' ');
 	fflush(stdout);
-	write(1, anothercounter, 1);
+	write(1, anothercounter, sizeof(int));
 	putchar(':');
 	putchar(' ');
 	fflush(stdout);
