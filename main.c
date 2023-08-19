@@ -81,5 +81,6 @@ int main(int argc, char **argv, char **env)
 			}
 		}
 	}
+	free(lineptr);
 	return (0);
 }
