@@ -5,7 +5,7 @@ char **printenv(char **env)
 
 	for (i = 0; env[i]; i++)
 	{
-		write(1, env[i], strlen(env[i]));
+		write(1, env[i], _strlen(env[i]));
 		putchar('\n');
 	}
 	return (env);
