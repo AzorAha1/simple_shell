@@ -59,7 +59,7 @@ int main(int argc, char **argv, char **env)
 				c_process = fork();
 				if (c_process == 0)
 				{
-					if (execve(av[0], av, NULL) == -1)
+					if (execve(av[0], av, env) == -1)
 					{
 						perror(argv[0]);
 						errno = 2;
