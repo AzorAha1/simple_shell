@@ -2,11 +2,12 @@
 char **printenv(char **env)
 {
 	int i;
+	(void)env;
 
-	for (i = 0; env[i]; i++)
+	for (i = 0; environ[i]; i++)
 	{
-		write(1, env[i], _strlen(env[i]));
+		write(1, environ[i], _strlen(environ[i]));
 		putchar('\n');
 	}
-	return (env);
+	return (environ);
 }

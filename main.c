@@ -15,7 +15,7 @@ int main(int argc, char **argv, char **env)
 		counter++;
 		if (mode == 1)
 			write(1, "$ ", 2);
-	line = getline(&lineptr, &buffersize, stdin);
+		line = getline(&lineptr, &buffersize, stdin);
 		lineptr[line - 1]  = '\0';
 		if (line == -1)
 		{
@@ -46,12 +46,11 @@ int main(int argc, char **argv, char **env)
 			if (_strcmp(av[0], "exit") == 0)
 			{
 				free(av);
-				exit(2);
+				exit(0);
 			}
 			if (_strcmp(av[0], "env") == 0)
 			{
-				printenv(env);
-				free(av);
+				printenv(environ);
 				continue;
 			}
 			if (access(av[0], F_OK) == 0)
@@ -81,6 +80,5 @@ int main(int argc, char **argv, char **env)
 			}
 		}
 	}
-	free(lineptr);
 	return (0);
 }

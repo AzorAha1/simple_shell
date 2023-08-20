@@ -14,5 +14,6 @@ int _strcmp(const char *s1, const char *s2);
 char **printenv(char **env);
 size_t _strlen(const char *c);
 extern char **environ;
+char *getpath(char *input);
 
 #endif
