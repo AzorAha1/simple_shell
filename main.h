@@ -16,6 +16,7 @@ size_t _strlen(const char *c);
 extern char **environ;
 char *getpath(char *input);
 void print_char(char ch);
-char *_strcpy(const char *s1, const char *s2)
+char *_strcpy(const char *s1, const char *s2);
+char *_strcat(const char *s1, const char *s2);
 
 #endif

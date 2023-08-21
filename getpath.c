@@ -24,7 +24,7 @@ char *getpath(char *input)
 				pathstrk = strtok(NULL, ":");
 				if (pathstrk)
 				{
-					strcpy(fullpath, pathstrk);
+					_strcpy(fullpath, pathstrk);
 					strcat(fullpath, "/");
 					strcat(fullpath, input);
 					printf("%s\n", fullpath);
