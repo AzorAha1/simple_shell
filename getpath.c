@@ -3,8 +3,8 @@ char *getpath(char *input)
 {
 	int i;
 	char *pathstrk;
-	(void)input;
-
+	char *fullpath;
+	
 	for (i = 0; environ[i]; i++)
 	{
 		char *str_tok = strtok(environ[i], "=");
@@ -12,12 +12,25 @@ char *getpath(char *input)
 		{
 			str_tok = strtok(NULL, "=");
 			pathstrk = strtok(str_tok, ":");
+			fullpath = malloc(sizeof(pathstrk) + sizeof(input));
+			strcpy(fullpath, pathstrk);
+			strcat(fullpath, "/");
+			strcat(fullpath, input);
 
 			while(pathstrk != NULL)
 			{
-				printf("%s\n", pathstrk);
+				printf("%s\n", fullpath);
+				free(fullpath);
+				fullpath = (char *)malloc(sizeof(pathstrk) + sizeof(input));
 				pathstrk = strtok(NULL, ":");
+				if (pathstrk)
+				{
+					strcpy(fullpath, pathstrk);
+					strcat(fullpath, "/");
+					strcat(fullpath, input);
+				}
 			}
+			free(fullpath);	
 		}
 	}
 	return (NULL);

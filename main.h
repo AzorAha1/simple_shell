@@ -15,5 +15,6 @@ char **printenv(char **env);
 size_t _strlen(const char *c);
 extern char **environ;
 char *getpath(char *input);
+void print_char(char ch);
 
 #endif

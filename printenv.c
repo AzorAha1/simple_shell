@@ -7,7 +7,7 @@ char **printenv(char **env)
 	for (i = 0; environ[i]; i++)
 	{
 		write(1, environ[i], _strlen(environ[i]));
-		putchar('\n');
+		print_char('\n');
 	}
 	return (environ);
 }

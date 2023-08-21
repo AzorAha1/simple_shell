@@ -9,7 +9,7 @@ int main(int argc, char **argv, char **env)
 	int count, mode = isatty(0), counter = 0;
 	pid_t c_process;
 	(void)argc;
-
+	
 	for(;;)
 	{
 		counter++;
@@ -46,13 +46,14 @@ int main(int argc, char **argv, char **env)
 			if (_strcmp(av[0], "exit") == 0)
 			{
 				free(av);
-				exit(0);
+				exit(status);
 			}
 			if (_strcmp(av[0], "env") == 0)
 			{
 				printenv(environ);
 				continue;
 			}
+			
 			if (access(av[0], F_OK) == 0)
 			{
 				c_process = fork();
@@ -63,12 +64,13 @@ int main(int argc, char **argv, char **env)
 						perror(argv[0]);
 						errno = 2;
 						free(av);
-						exit(1);
+						exit(status);
 					}
 				}
 				else
 				{
 					wait(&status);
+					errno = WIFEXITED(status);
 					free(av);
 				}
 			}
