@@ -19,7 +19,6 @@ char *getpath(char *input)
 
 			while(pathstrk != NULL)
 			{
-				printf("%s\n", fullpath);
 				free(fullpath);
 				fullpath = (char *)malloc(sizeof(pathstrk) + sizeof(input));
 				pathstrk = strtok(NULL, ":");
@@ -28,6 +27,7 @@ char *getpath(char *input)
 					strcpy(fullpath, pathstrk);
 					strcat(fullpath, "/");
 					strcat(fullpath, input);
+					printf("%s\n", fullpath);
 				}
 			}
 			free(fullpath);	
