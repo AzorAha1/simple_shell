@@ -6,7 +6,7 @@
  * Description - this function concatenates s2 to s1
  * Return: returns s1
 */
-char *_strcat(const char *s1, const char *s2)
+char *_strcat(char *s1, char *s2)
 {
     int i, j;
     if (!s1 || !s2)

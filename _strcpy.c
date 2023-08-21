@@ -6,7 +6,7 @@
  * Description - this function copies from s2 to s1
  * Return: return a char type
 */
-char *_strcpy(const char *s1, const char *s2)
+char *_strcpy(char *s1, char *s2)
 {
     int i;
     if (!s1 || !s2)

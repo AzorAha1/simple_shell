@@ -13,9 +13,9 @@ char *getpath(char *input)
 			str_tok = strtok(NULL, "=");
 			pathstrk = strtok(str_tok, ":");
 			fullpath = malloc(sizeof(pathstrk) + sizeof(input));
-			strcpy(fullpath, pathstrk);
-			strcat(fullpath, "/");
-			strcat(fullpath, input);
+			_strcpy(fullpath, pathstrk);
+			_strcat(fullpath, "/");
+			_strcat(fullpath, input);
 
 			while(pathstrk != NULL)
 			{
@@ -25,8 +25,8 @@ char *getpath(char *input)
 				if (pathstrk)
 				{
 					_strcpy(fullpath, pathstrk);
-					strcat(fullpath, "/");
-					strcat(fullpath, input);
+					_strcat(fullpath, "/");
+					_strcat(fullpath, input);
 					printf("%s\n", fullpath);
 				}
 			}

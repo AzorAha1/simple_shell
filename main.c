@@ -53,12 +53,6 @@ int main(int argc, char **argv, char **env)
 				printenv(environ);
 				continue;
 			}
-			if (_strcmp(av[0], av[0]) == 0)
-			{
-				getpath(av[0]);
-				continue;
-			}
-			
 			if (access(av[0], F_OK) == 0)
 			{
 				c_process = fork();
