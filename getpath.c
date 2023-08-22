@@ -42,6 +42,7 @@ char *getpath(char *input)
 			}
 			free(pathstrk);
 			free(fullpath);
+			free(env_cpy);
 		}
 		free(env_cpy);
 		}
