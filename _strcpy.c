@@ -1,5 +1,5 @@
 #include "main.h"
-/***
+/**
  * _strcpy - custom function to string copy
  * @s1: s1 will act as the destinaton
  * @s2: s2 will be the source
@@ -9,6 +9,7 @@
 char *_strcpy(char *s1, char *s2)
 {
     int i;
+    
     if (!s1 || !s2)
     {
         return (NULL);

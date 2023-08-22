@@ -1,5 +1,5 @@
 #include "main.h"
-/***
+/**
  * printenv - function name
  * @void: void argument
  * Description - function to print environment

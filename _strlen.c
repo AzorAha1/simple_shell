@@ -7,8 +7,7 @@
  */
 size_t _strlen(const char *c)
 {
-	size_t i;
-	if (!c)
+	size_t i; if (!c)
 	{
 		return (-1);
 	}

@@ -2,17 +2,13 @@
 
 int main(int argc, char **argv, char **env)
 {
-	char *lineptr = NULL;
+	char *lineptr = NULL, *fullpath, *string_token;
 	size_t buffersize = 0, len;
-	int line, status;
 	char **av;
-	char *fullpath;
-	char *string_token;
-	int count, mode = isatty(0), counter = 0;
-	pid_t c_process;
+	int count, mode = isatty(0), counter = 0, c_process, line, status;
 	(void)argc;
-	
-	for(;;)
+
+	for (;;)
 	{
 		counter++;
 		if (mode == 1)
@@ -24,11 +20,11 @@ int main(int argc, char **argv, char **env)
 			free(lineptr);
 			exit(status);
 		}
-		
 		len = _strlen(lineptr);
-
 		while (len > 0 && (lineptr[len - 1] == ' ' || lineptr[len - 1] == '\t'))
-				lineptr[--len] = '\0';
+		{
+			lineptr[--len] = '\0';
+		}
 		if (len == 0)
 			continue;
 		if (lineptr[0] != '\0')
@@ -88,7 +84,6 @@ int main(int argc, char **argv, char **env)
 				perror(argv[0]);
 				errno = 2;
 				free(av);
-				free(lineptr);
 			}
 		}
 	}

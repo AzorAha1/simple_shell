@@ -1,15 +1,18 @@
 #include "main.h"
+/**
+ * getpath - getpath function
+ * @input: this takes the command input argument
+ * Description - function to get path from enviroment
+ * Return: returns path
+*/
 char *getpath(char *input)
 {
 	int i;
-	char *pathstrk; 
-	char *fullpath;
-	char *env_cpy;
-	char *str_tok;
-	
+	char *pathstrk, *str_tok, *fullpath, *env_cpy;
+
 	for (i = 0; environ[i]; i++)
 	{
-		env_cpy = strdup(environ[i]);
+		env_cpy = _strdup(environ[i]);
 		str_tok = strtok(env_cpy, "=");
 		if (_strcmp(str_tok, "PATH") == 0)
 		{
@@ -20,7 +23,7 @@ char *getpath(char *input)
 			_strcat(fullpath, "/");
 			_strcat(fullpath, input);
 
-			while(pathstrk != NULL)
+			while (pathstrk != NULL)
 			{
 				fullpath = malloc(_strlen(pathstrk) + _strlen(input) + 2);
 				pathstrk = strtok(NULL, ":");
@@ -40,8 +43,8 @@ char *getpath(char *input)
 			free(pathstrk);
 			free(fullpath);
 		}
-		free(env_cpy);	
-	}
+		free(env_cpy);
+		}
 	return (NULL);
 }
 
