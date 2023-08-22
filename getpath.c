@@ -9,7 +9,6 @@ char *getpath(char *input)
 	
 	for (i = 0; environ[i]; i++)
 	{
-		/*str_tok = strtok(environ[i], "=");*/
 		env_cpy = strdup(environ[i]);
 		str_tok = strtok(env_cpy, "=");
 		if (_strcmp(str_tok, "PATH") == 0)

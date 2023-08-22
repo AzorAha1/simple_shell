@@ -52,7 +52,7 @@ int main(int argc, char **argv, char **env)
 			}
 			if (_strcmp(av[0], "env") == 0)
 			{
-				printenv(environ);
+				printenv();
 				continue;
 			}
 			if (access(av[0], F_OK) == 0)
@@ -70,7 +70,6 @@ int main(int argc, char **argv, char **env)
 				{
 					if (execve(fullpath, av, env) == -1)
 					{
-						printf("%s\n", av[0]);
 						perror(argv[0]);
 						errno = 2;
 						free(av);
@@ -89,6 +88,7 @@ int main(int argc, char **argv, char **env)
 				perror(argv[0]);
 				errno = 2;
 				free(av);
+				free(lineptr);
 			}
 		}
 	}
