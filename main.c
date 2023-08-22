@@ -1,10 +1,12 @@
 #include "main.h"
+
 int main(int argc, char **argv, char **env)
 {
 	char *lineptr = NULL;
 	size_t buffersize = 0, len;
 	int line, status;
 	char **av;
+	char *fullpath;
 	char *string_token;
 	int count, mode = isatty(0), counter = 0;
 	pid_t c_process;
@@ -20,7 +22,7 @@ int main(int argc, char **argv, char **env)
 		if (line == -1)
 		{
 			free(lineptr);
-			exit(0);
+			exit(status);
 		}
 		
 		len = _strlen(lineptr);
@@ -55,11 +57,20 @@ int main(int argc, char **argv, char **env)
 			}
 			if (access(av[0], F_OK) == 0)
 			{
+				fullpath = av[0];
+			}
+			else
+			{
+				fullpath = getpath(av[0]);
+			}
+			if (fullpath)
+			{
 				c_process = fork();
 				if (c_process == 0)
 				{
-					if (execve(av[0], av, env) == -1)
+					if (execve(fullpath, av, env) == -1)
 					{
+						printf("%s\n", av[0]);
 						perror(argv[0]);
 						errno = 2;
 						free(av);
