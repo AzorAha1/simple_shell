@@ -86,7 +86,6 @@ int main(int argc, char **argv, char **env)
 			{
 				perror(argv[0]);
 				errno = 2;
-				exit(errno);
 				free(av);
 			}
 		}
