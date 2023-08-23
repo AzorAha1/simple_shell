@@ -36,7 +36,6 @@ char *getpath(char *input)
 					return (fullpath);
 				}
 				free(fullpath);
-				errno = 127;
 				pathstrk = strtok(NULL, ":");
 				if (pathstrk)
 				{
