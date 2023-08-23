@@ -3,7 +3,7 @@
 int main(int argc, char **argv, char **env)
 {
 	char *lineptr = NULL, *fullpath, *string_token;
-	size_t buffersize = 0, len;
+	size_t buffersize = 0, len, numalloc = 200;
 	char **av;
 	int count, mode = isatty(0), c_process, line, status = 0;
 	(void)argc;
@@ -28,7 +28,7 @@ int main(int argc, char **argv, char **env)
 			continue;
 		if (lineptr[0] != '\0')
 		{
-			av = (char **)malloc(sizeof(char *) * 1000);
+			av = (char **)malloc(sizeof(char *) * (numalloc + 1));
 			if (!av)
 			{
 				continue;
@@ -67,6 +67,7 @@ int main(int argc, char **argv, char **env)
 					{
 						perror(argv[0]);
 						errno = 2;
+						free(fullpath);
 						free(av);
 						exit(status);
 					}
@@ -75,6 +76,7 @@ int main(int argc, char **argv, char **env)
 				{
 					wait(&status);
 					errno = WIFEXITED(status);
+					free(fullpath);
 					free(av);
 				}
 			}
@@ -82,9 +84,9 @@ int main(int argc, char **argv, char **env)
 			{
 				perror(argv[0]);
 				errno = 2;
+				free(fullpath);
 				free(av);
 			}
-			free(fullpath);
 		}
 	}
 	return (0);
