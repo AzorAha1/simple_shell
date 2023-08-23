@@ -5,21 +5,20 @@ int main(int argc, char **argv, char **env)
 	char *lineptr = NULL, *fullpath, *string_token;
 	size_t buffersize = 0, len;
 	char **av;
-	int count, mode = isatty(0), counter = 0, c_process, line, status;
+	int count, mode = isatty(0), c_process, line, status = 0;
 	(void)argc;
 
 	for (;;)
 	{
-		counter++;
 		if (mode == 1)
 			write(1, "$ ", 2);
 		line = getline(&lineptr, &buffersize, stdin);
-		lineptr[line - 1]  = '\0';
 		if (line == -1)
 		{
 			free(lineptr);
 			exit(status);
 		}
+		lineptr[line - 1] = '\0';
 		len = _strlen(lineptr);
 		while (len > 0 && (lineptr[len - 1] == ' ' || lineptr[len - 1] == '\t'))
 		{
@@ -85,6 +84,7 @@ int main(int argc, char **argv, char **env)
 				errno = 2;
 				free(av);
 			}
+			free(fullpath);
 		}
 	}
 	return (0);
