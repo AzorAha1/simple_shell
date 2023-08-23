@@ -5,7 +5,7 @@ int main(int argc, char **argv, char **env)
 	char *lineptr = NULL, *fullpath, *string_token;
 	size_t buffersize = 0, len, numalloc = 200;
 	char **av;
-	int count, mode = isatty(0), c_process, line, status = 0;
+	int count, mode = isatty(0), c_process, line, status = 0, ex = 0;
 	(void)argc;
 
 	for (;;)
@@ -16,7 +16,7 @@ int main(int argc, char **argv, char **env)
 		if (line == -1)
 		{
 			free(lineptr);
-			exit(errno);
+			exit(127);
 		}
 		lineptr[line - 1] = '\0';
 		len = _strlen(lineptr);
@@ -43,7 +43,7 @@ int main(int argc, char **argv, char **env)
 			if (_strcmp(av[0], "exit") == 0)
 			{
 				free(av);
-				exit(status);
+				exit(ex);
 			}
 			if (_strcmp(av[0], "env") == 0)
 			{
@@ -59,6 +59,7 @@ int main(int argc, char **argv, char **env)
 			{
 				fullpath = getpath(av[0]);
 			}
+		
 			if (fullpath)
 			{
 				c_process = fork();
@@ -67,9 +68,8 @@ int main(int argc, char **argv, char **env)
 					if (execve(fullpath, av, env) == -1)
 					{
 						perror(argv[0]);
-						errno = 2;
-						free(av);
-						exit(errno);
+						free(av);	
+						exit(2);
 					}
 				}
 				else
@@ -77,7 +77,7 @@ int main(int argc, char **argv, char **env)
 					wait(&status);
 					if (WIFEXITED(status))
 					{
-						status = WIFEXITED(status);
+						ex = WEXITSTATUS(status);
 					}
 					free(av);
 				}
@@ -85,10 +85,10 @@ int main(int argc, char **argv, char **env)
 			else
 			{
 				perror(argv[0]);
-				errno = 2;
+				ex = 127;
 				free(av);
 			}
 		}
 	}
-	return (0);
+	return (ex);
 }
