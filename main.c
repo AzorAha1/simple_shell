@@ -48,6 +48,7 @@ int main(int argc, char **argv, char **env)
 			if (_strcmp(av[0], "env") == 0)
 			{
 				printenv();
+				free(av);
 				continue;
 			}
 			if (access(av[0], F_OK) == 0)
@@ -67,7 +68,6 @@ int main(int argc, char **argv, char **env)
 					{
 						perror(argv[0]);
 						errno = 2;
-						free(fullpath);
 						free(av);
 						exit(status);
 					}
@@ -76,7 +76,6 @@ int main(int argc, char **argv, char **env)
 				{
 					wait(&status);
 					errno = WIFEXITED(status);
-					free(fullpath);
 					free(av);
 				}
 			}
@@ -84,7 +83,6 @@ int main(int argc, char **argv, char **env)
 			{
 				perror(argv[0]);
 				errno = 2;
-				free(fullpath);
 				free(av);
 			}
 		}

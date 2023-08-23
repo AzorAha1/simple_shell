@@ -25,20 +25,25 @@ char *getpath(char *input)
 
 			while (pathstrk != NULL)
 			{
-					if (access(fullpath, F_OK) == 0)
-					{
-						free(env_cpy);
-						return (fullpath);
-					}
-					free(fullpath);
-					pathstrk = strtok(NULL, ":");
-					if (pathstrk)
-					{
-						fullpath = (char *)malloc(_strlen(pathstrk) + _strlen(input) + 2);
-						strcpy(fullpath, pathstrk);
-						strcat(fullpath, "/");
-						strcat(fullpath, input);
-					}
+				if (fullpath == NULL)
+				{
+					free(env_cpy);
+					return (NULL);
+				}
+				if (access(fullpath, F_OK) == 0)
+				{
+					free(env_cpy);
+					return (fullpath);
+				}
+				free(fullpath);
+				pathstrk = strtok(NULL, ":");
+				if (pathstrk)
+				{
+					fullpath = (char *)malloc(_strlen(pathstrk) + _strlen(input) + 2);
+					strcpy(fullpath, pathstrk);
+					strcat(fullpath, "/");
+					strcat(fullpath, input);
+				}
 			}
 			free(pathstrk);
 		}
