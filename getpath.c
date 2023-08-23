@@ -18,37 +18,31 @@ char *getpath(char *input)
 		{
 			str_tok = strtok(NULL, "=");
 			pathstrk = strtok(str_tok, ":");
-			fullpath = malloc(_strlen(pathstrk) + _strlen(input) + 2);
-			_strcpy(fullpath, pathstrk);
-			_strcat(fullpath, "/");
-			_strcat(fullpath, input);
+			fullpath = (char *)malloc(sizeof(pathstrk) + sizeof(input) + 2);
+			strcpy(fullpath, pathstrk);
+			strcat(fullpath, "/");
+			strcat(fullpath, input);
 
 			while (pathstrk != NULL)
 			{
-				free(fullpath);
-				fullpath = malloc(_strlen(pathstrk) + _strlen(input) + 2);
-				pathstrk = strtok(NULL, ":");
-
+				fullpath = (char *)malloc(sizeof(pathstrk) + sizeof(input) + 2);
 				if (pathstrk)
 				{
-					_strcpy(fullpath, pathstrk);
-					_strcat(fullpath, "/");
-					_strcat(fullpath, input);
+					strcpy(fullpath, pathstrk);
+					strcat(fullpath, "/");
+					strcat(fullpath, input);
 					if (access(fullpath, F_OK) == 0)
 					{
 						free(env_cpy);
 						return (fullpath);
 					}
+					free(fullpath);
+					pathstrk = strtok(NULL, ":");
 				}
 			}
 			free(pathstrk);
-			free(fullpath);
 		}
 		free(env_cpy);
-		}
-		
+	}
 	return (NULL);
 }
-
-
-
