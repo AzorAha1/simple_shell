@@ -43,7 +43,7 @@ int main(int argc, char **argv, char **env)
 			if (_strcmp(av[0], "exit") == 0)
 			{
 				free(av);
-				exit(status);
+				exit(2);
 			}
 			if (_strcmp(av[0], "env") == 0)
 			{
