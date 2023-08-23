@@ -25,6 +25,7 @@ char *getpath(char *input)
 
 			while (pathstrk != NULL)
 			{
+				free(fullpath);
 				fullpath = malloc(_strlen(pathstrk) + _strlen(input) + 2);
 				pathstrk = strtok(NULL, ":");
 
@@ -42,10 +43,10 @@ char *getpath(char *input)
 			}
 			free(pathstrk);
 			free(fullpath);
-			free(env_cpy);
 		}
 		free(env_cpy);
 		}
+		
 	return (NULL);
 }
 
