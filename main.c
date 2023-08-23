@@ -16,7 +16,7 @@ int main(int argc, char **argv, char **env)
 		if (line == -1)
 		{
 			free(lineptr);
-			exit(127);
+			exit(0);
 		}
 		lineptr[line - 1] = '\0';
 		len = _strlen(lineptr);
@@ -77,7 +77,7 @@ int main(int argc, char **argv, char **env)
 					wait(&status);
 					if (WIFEXITED(status))
 					{
-						ex = WEXITSTATUS(status);
+						status = WEXITSTATUS(status);
 					}
 					free(av);
 				}
@@ -85,10 +85,11 @@ int main(int argc, char **argv, char **env)
 			else
 			{
 				perror(argv[0]);
-				ex = 127;
+				/*ex = 127*/;
+				errno = 2;
 				free(av);
 			}
 		}
 	}
-	return (ex);
+	return (0);
 }
