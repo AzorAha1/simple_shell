@@ -16,7 +16,7 @@ int main(int argc, char **argv, char **env)
 		if (line == -1)
 		{
 			free(lineptr);
-			exit(status);
+			exit(errno);
 		}
 		lineptr[line - 1] = '\0';
 		len = _strlen(lineptr);
@@ -69,13 +69,16 @@ int main(int argc, char **argv, char **env)
 						perror(argv[0]);
 						errno = 2;
 						free(av);
-						exit(status);
+						exit(errno);
 					}
 				}
 				else
 				{
 					wait(&status);
-					errno = WIFEXITED(status);
+					if (WIFEXITED(status))
+					{
+						status = WIFEXITED(status);
+					}
 					free(av);
 				}
 			}
