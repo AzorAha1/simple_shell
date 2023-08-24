@@ -32,7 +32,6 @@ char *getpath(char *input)
 				}
 				if (access(fullpath, F_OK) == 0)
 				{
-					/*free(fullpath)*/;
 					free(env_cpy);
 					return (fullpath);
 				}

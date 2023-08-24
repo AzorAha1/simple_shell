@@ -5,7 +5,7 @@ int main(int argc, char **argv, char **env)
 	char *lineptr = NULL, *fullpath, *string_token;
 	size_t buffersize = 0, len, numalloc = 200;
 	char **av;
-	int count, mode = isatty(0), c_process, line, status = 0, ex = 0;
+	int count, mode = isatty(0), c_process, line, status = 0, ex = 0, set = 0;
 	(void)argc;
 
 	for (;;)
@@ -43,6 +43,7 @@ int main(int argc, char **argv, char **env)
 			if (_strcmp(av[0], "exit") == 0)
 			{
 				free(av);
+				free(lineptr);
 				exit(ex);
 			}
 			if (_strcmp(av[0], "env") == 0)
@@ -58,6 +59,7 @@ int main(int argc, char **argv, char **env)
 			else
 			{
 				fullpath = getpath(av[0]);
+				set = 1;
 			}
 		
 			if (fullpath)
@@ -80,6 +82,8 @@ int main(int argc, char **argv, char **env)
 						status = WEXITSTATUS(status);
 					}
 					free(av);
+					if (set == 1)
+						free(fullpath);
 				}
 			}
 			else
