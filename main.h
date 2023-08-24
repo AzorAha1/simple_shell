@@ -16,9 +16,10 @@ char **printenv();
 size_t _strlen(const char *c);
 extern char **environ;
 char *getpath(char *input);
-void print_char(char ch);
+int print_char(char ch);
 char *_strcpy(char *s1, char *s2);
 char *_strcat(char *s1, char *s2);
 char *_strdup(char *str);
+void _puts(char *ch);
 
 #endif

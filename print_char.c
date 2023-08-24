@@ -5,7 +5,7 @@
  * Description - function to print a character
  * Return: returns void
 */
-void print_char(char ch)
+int print_char(char ch)
 {
-	write(1, &ch, 1);
+	return write(1, &ch, 1);
 }
