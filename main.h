@@ -22,6 +22,6 @@ char *_strcat(char *s1, char *s2);
 char *_strdup(char *str);
 void _puts(char *ch);
 void errorm(char *argv, int counter, char *ac);
-void handle_comment(char *input)
+void handle_comment(char *input);
 
 #endif
