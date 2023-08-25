@@ -7,5 +7,5 @@
 */
 int print_char(char ch)
 {
-	return write(1, &ch, 1);
+	return write(2, &ch, 1);
 }
