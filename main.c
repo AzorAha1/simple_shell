@@ -5,11 +5,13 @@ int main(int argc, char **argv, char **env)
 	char *lineptr = NULL, *fullpath, *string_token;
 	size_t buffersize = 0, len, numalloc = 200;
 	char **av;
-	int count, mode = isatty(0), c_process, line, status = 0, ex = 0, set = 0;
+	char convert;
+	int count, mode = isatty(0), c_process, line, status = 0, ex = 0, set = 0, counter = 0;
 	(void)argc;
 
 	for (;;)
 	{
+		counter++;
 		if (mode == 1)
 			write(1, "$ ", 2);
 		line = getline(&lineptr, &buffersize, stdin);
@@ -69,7 +71,8 @@ int main(int argc, char **argv, char **env)
 				{
 					if (execve(fullpath, av, env) == -1)
 					{
-						perror(argv[0]);
+						convert = (counter + '0');
+						errorm(argv[0], convert, av[0]);	
 						free(av);	
 						exit(2);
 					}
@@ -88,7 +91,8 @@ int main(int argc, char **argv, char **env)
 			}
 			else
 			{
-				perror(argv[0]);
+				convert = (counter + '0');
+				errorm(argv[0], convert, av[0]);
 				ex = 127;
 				errno = 2;
 				free(av);
