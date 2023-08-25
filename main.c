@@ -20,6 +20,7 @@ int main(int argc, char **argv, char **env)
 			free(lineptr);
 			exit(ex);
 		}
+		handle_comment(lineptr);	
 		lineptr[line - 1] = '\0';
 		len = _strlen(lineptr);
 		while (len > 0 && (lineptr[len - 1] == ' ' || lineptr[len - 1] == '\t'))
