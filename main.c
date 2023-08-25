@@ -6,7 +6,7 @@ int main(int argc, char **argv, char **env)
 	size_t buffersize = 0, len, numalloc = 200;
 	char **av;
 	char convert;
-	int count, mode = isatty(0), c_process, line, status = 0, ex = 0, set = 0, counter = 0;
+	int count, mode = isatty(0), c_process, line, status = 0, ex = 0, counter = 0;
 	(void)argc;
 
 	for (;;)
@@ -62,7 +62,7 @@ int main(int argc, char **argv, char **env)
 			else
 			{
 				fullpath = getpath(av[0]);
-				set = 1;
+				/*set = 1;*/
 			}
 		
 			if (fullpath)
@@ -73,8 +73,9 @@ int main(int argc, char **argv, char **env)
 					if (execve(fullpath, av, env) == -1)
 					{
 						convert = (counter + '0');
-						errorm(argv[0], convert, av[0]);	
-						free(av);	
+						errorm(argv[0], convert, av[0]);
+						ex = 2;
+						free(av);		
 						exit(2);
 					}
 				}
@@ -85,9 +86,10 @@ int main(int argc, char **argv, char **env)
 					{
 						status = WEXITSTATUS(status);
 					}
+					ex = status;
 					free(av);
-					if (set == 1)
-						free(fullpath);
+					/*if (set == 1)
+						free(fullpath);**/
 				}
 			}
 			else
